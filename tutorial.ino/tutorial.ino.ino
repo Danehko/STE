@@ -8,22 +8,15 @@ void setup() {
    pinMode(sw2, INPUT);           // set pin to input
    pinMode(led1, OUTPUT);           // set pin to input
    pinMode(led2, OUTPUT);           // set pin to input
-   //digitalWrite(led1, LOW);       // turn on pullup resistors
-   //digitalWrite(led2, LOW);       // turn on pullup resistors
 }
-
 void loop() {
-
-  push1 = digitalRead(sw1);
-  push2 = digitalRead(sw2);
-  
-  if ( push1 == LOW) {
+  if ( digitalRead(sw1) == LOW) {
      digitalWrite(led1, HIGH);       // turn on pullup resistors
   }
   else {
      digitalWrite(led1, LOW);       // turn on pullup resistors
   }
-  if ( push2 == HIGH) {
+  if ( digitalRead(sw2) == HIGH) {
      digitalWrite(led2, HIGH);       // turn on pullup resistors
   }
   else {
