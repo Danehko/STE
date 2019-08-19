@@ -5,9 +5,9 @@
 #define r10k 10000
 #define vin 5
 
-unsigned long time_i;
-unsigned long time_f;
-unsigned long time_t;
+//unsigned long time_i;
+//unsigned long time_f;
+//unsigned long time_t;
 
 float vout_d = 0;
 float vout = 0;
@@ -21,8 +21,7 @@ void setup() {
 }
 
 void loop() {
-  time_i = micros();
-  
+  //time_i = micros();
   digitalWrite(led, HIGH);
   vout_d = analogRead(A1);
   vout = (5 * vout_d)/1023;
@@ -30,12 +29,12 @@ void loop() {
   tempk = 1/(a + (b*(log(rntc))) + (c*(log(rntc))*(log(rntc))*(log(rntc))));
   tempc = tempk - 273.15;
   digitalWrite(led, LOW);
-  time_f = micros();
+  //time_f = micros();
   
-  time_t = time_f - time_i;
-  Serial.print("temperatura: ");
-  Serial.println(tempc);
-  Serial.print("tempo: ");
-  Serial.println(time_t);
+  //time_t = time_f - time_i;
+  //Serial.print("temperatura: ");
+  //Serial.println(tempc);
+  //Serial.print("tempo: ");
+  //Serial.println(time_t);
   delay(2000);  
 }
