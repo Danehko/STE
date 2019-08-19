@@ -1,4 +1,7 @@
 #define led 13
+unsigned long time_i;
+unsigned long time_f;
+unsigned long time_t;
 float aux = 0;
 float temp = 0;
 float a = 0.001112272865;
@@ -17,6 +20,7 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
+  time_i = micros();
   digitalWrite(led, HIGH); // turn on pullup resistors
   aux = analogRead(A1);
   vout = (5 * aux)/1023;
@@ -26,5 +30,9 @@ void loop() {
   digitalWrite(led, LOW); // turn on pullup resistors
   Serial.print("temperatura: ");
   Serial.println(temp-273.15);
+  time_f = micros();
+  time_t = time_f - time_i;
+  Serial.print("tempo: ");
+  Serial.println(time_t);
   delay(2000);  
 }
