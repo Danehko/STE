@@ -15,19 +15,32 @@
  */
 int main() {
     
-    DDRB = 0xFF;
-    DDRD = 0x00;
+    DDRB |= (1<<7);
+    DDRB &= ~(1<<6);
     
     for(;;){
-        if(PORTD == 0X001){
-            PORTB = 0x00;
-            //_delay_ms(1000);
+        if(PINB & (1<<6)){
+            PORTB |= (1<<7);
         }
         else{
-            PORTB = 0xFF; 
-            //_delay_ms(1000);
+            PORTB &= ~(1<<7); 
         }
     }
     return 0;
 }
-
+/*
+int main() {
+    
+    DDRB = 0xFF;
+    DDRF = 0x00;
+    
+    for(;;){
+        if(PINF){
+            PORTB = 0xFF;
+        }
+        else{
+            PORTB = 0x00; 
+        }
+    }
+    return 0;
+}*/
