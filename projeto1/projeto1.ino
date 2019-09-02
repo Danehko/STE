@@ -32,8 +32,8 @@ void loop() {
   //time_f = micros();
   
   //time_t = time_f - time_i;
-  //Serial.print("temperatura: ");
-  //Serial.println(tempc);
+  Serial.print("temperatura: ");
+  Serial.println(tempc);
   //Serial.print("tempo: ");
   //Serial.println(time_t);
   delay(2000);  

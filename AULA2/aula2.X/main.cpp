@@ -6,14 +6,25 @@
  */
 
 #define F_CPU 16000000UL
-
 #define BAUD 9600
 #define MYUBRR (F_CPU/16/BAUD-1)
+
+#define led 13
+#define a 0.001112272865
+#define b 0.0002375809102
+#define c 0.00000006852858650
+#define r10k 10000
+#define vin 5
 
 #include<avr/io.h>
 #include<util/delay.h>
 
 using namespace std;
+
+void ADC_Init(){
+    ADCSRA = (1<<ADEN)|(7<<ADPS0);
+    ADLAR = 0;
+}
 
 void USART_Init( unsigned int ubrr){
     // Set baud rate
@@ -41,11 +52,25 @@ void USART_Transmit( unsigned char data ){
 }
 
 int main() {
+    unsigned int vout_d = 0;
+    unsigned int  vout = 0;
+    unsigned int  tempk = 0;
+    unsigned int  tempc = 0;
+    unsigned int  rntc = 0;
     USART_Init(MYUBRR);
+    DDRB |= (1<<7);
+    
     unsigned char buffer;
     for(;;){
+        PORTB |= (1<<7);
+        vout_d = ADC;
+        vout = (5 * vout_d)/1023;
+        rntc = r10k*((vin/vout)-1);
+        tempk = 1/(a + (b*(log(rntc))) + (c*(log(rntc))*(log(rntc))*(log(rntc))));
+        tempc = tempk - 273.15;
         buffer = USART_Receive();
         USART_Transmit(buffer+1);
+        PORTB &= ~(1<<7);
     }
     return 0;
 }
