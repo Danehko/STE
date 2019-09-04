@@ -1,0 +1,66 @@
+/* 
+ * File:   main.cpp
+ * Author: aluno
+ *
+ * Created on 28 de Agosto de 2019, 08:02
+ */
+
+#define F_CPU 16000000UL
+#define BAUD 9600
+#define MYUBRR (F_CPU/16/BAUD-1)
+
+#define led 13
+
+#include<avr/io.h>
+#include<util/delay.h>
+#include<avr/interrup.h>
+
+using namespace std;
+
+
+void setup(){
+	
+	EICRB |= (3<<ISC40);
+	EIMSK |= (1<<INT4);
+
+
+}
+
+ISR(INT4_vect){
+
+	//if(PINE & (1<<4))
+	USART_Transmit;
+}
+
+
+void USART_Transmit( unsigned char data ){
+    //Wait for empty transmit buffer
+    while ( !( UCSR0A & (1<<UDRE0)) );
+    //Put data into buffer, sends the data
+    UDR0 = data;
+}
+
+int main() {
+
+
+	setup();
+	sei();
+
+
+
+    USART_Init(MYUBRR);
+    DDRB |= (1<<7);
+    
+    unsigned char buffer;
+    buffer = 'a'; // caracter a ser enviado
+    for(;;){
+        PORTB |= (1<<7); //liga o led
+	 _delay_ms(1000); //delay de 1s
+	PORTB &= ~(1<<7); //desliga o led
+	 _delay_ms(1000); //delay de 1s
+        
+	if (PINE & (1<<4)) //apertar o botao
+          USART_Transmit(buffer); //enviar o caracter;        
+    }
+    return 0;
+}
