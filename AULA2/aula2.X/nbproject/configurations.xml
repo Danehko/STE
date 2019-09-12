@@ -31,7 +31,7 @@
         <platformTool>Simulator</platformTool>
         <languageToolchain>AVR</languageToolchain>
         <languageToolchainVersion>5.4.0</languageToolchainVersion>
-        <platform>2</platform>
+        <platform>3</platform>
       </toolsSet>
       <packs>
         <pack name="ATmega_DFP" vendor="Microchip" version="2.0.12"/>
@@ -55,7 +55,7 @@
         <makeCustomizationPreStepEnabled>false</makeCustomizationPreStepEnabled>
         <makeCustomizationPreStep></makeCustomizationPreStep>
         <makeCustomizationPostStepEnabled>true</makeCustomizationPostStepEnabled>
-        <makeCustomizationPostStep>avrdude -c avrispmkII -P /dev/ttyUSB0 -D -p ${Device} -U flash:w:${ImagePath}:i</makeCustomizationPostStep>
+        <makeCustomizationPostStep>avrdude -c avrispmkII -P /dev/COM6 -D -p ${Device} -U flash:w:${ImagePath}:i</makeCustomizationPostStep>
         <makeCustomizationPutChecksumInUserID>false</makeCustomizationPutChecksumInUserID>
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>

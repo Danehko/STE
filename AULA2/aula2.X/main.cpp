@@ -6,7 +6,7 @@
  */
 
 #include<avr/io.h>
-#include <stdio.h>
+#include <stdio.h>yh
 #include <math.h> 
 
 #define F_CPU 16000000UL
@@ -63,19 +63,11 @@ int main() {
 	
     for(;;){
 	  uint16_t vout_d = ADC_Read(0);
-	  sprintf(buffer,"ADC: %d\r\n",vout_d);
-	  for(int i = 0; i < 10; i++){
-          USART_Transmit(buffer[i]);
-      }
 	  vout = (vin * vout_d)/1023;
 	  rntc = r10k * ((vin/vout)-1);
 	  lnr = log(rntc/rinf);
 	  tempk = B/(lnr);
 	  tempc = (tempk - 273.15);
-      snprintf(buffer,10,"T: %d\r\n", (int)(tempc));
-      for(int i = 0; i < 10; i++){
-        USART_Transmit(buffer[i]);
-      }
 	}
 	return 0;
 }
