@@ -23,7 +23,7 @@ void setup() {
 void loop() {
   //time_i = micros();
   digitalWrite(led, HIGH);
-  vout_d = analogRead(A1);
+  vout_d = analogRead(A0);
   vout = (5 * vout_d)/1023;
   rntc = r10k*((vin/vout)-1);
   tempk = 1/(a + (b*(log(rntc))) + (c*(log(rntc))*(log(rntc))*(log(rntc))));

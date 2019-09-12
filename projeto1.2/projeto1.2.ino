@@ -24,7 +24,7 @@ void loop() {
   //time_i = micros();
   
   digitalWrite(led, HIGH); // turn on pullup resistors
-  vout_d = analogRead(A1);
+  vout_d = analogRead(A0);
   vout = (vin * vout_d)/1023;
   rntc = r10k*((vin/vout)-1);
   lnr = log(rntc/rinf);
@@ -34,8 +34,8 @@ void loop() {
   //time_f = micros();
   
   //time_t = time_f - time_i;
-  //Serial.print("temperatura: ");
-  //Serial.println(tempc);
+  Serial.print("temperatura: ");
+  Serial.println(tempc);
   //Serial.print("tempo: ");
   //Serial.println(time_t);
   delay(2000);  

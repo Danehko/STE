@@ -6,23 +6,22 @@
  */
 
 #include<avr/io.h>
-#include<util/delay.h>
 #include <stdio.h>
+#include <math.h> 
 
-#define FOSC 16000000
+#define F_CPU 16000000UL
 #define BAUD 9600
-#define MYUBRR (FOSC/16/BAUD)-1
+#define MYUBRR (F_CPU/16/BAUD)-1
 
 using namespace std;
 
 void ADC_Init(){
     ADCSRA = (1<<ADEN)|(7<<ADPS0);
-    ADLAR = 0;
 	ADMUX |= (1<<REFS0);
 }
 
 uint16_t ADC_Read(uint8_t channel){
-  	channel &= 0b00000111;  
+  	channel &= 0x07;  
   	ADMUX = (ADMUX & 0xF8)|channel; 
 	ADCSRA |= (1<<ADSC);       
 	while(ADCSRA & (1<<ADSC));
@@ -47,7 +46,6 @@ void USART_Transmit( uint8_t data ){
     UDR0 = data;     					//Put data into buffer, sends the data
 }
 
-#define led 13
 #define B 3950
 #define r10k 10000.0
 #define vin 5
@@ -56,20 +54,28 @@ void USART_Transmit( uint8_t data ){
 int main() {
 	ADC_Init();
     USART_Init(MYUBRR);
-	 char buffer[16];
+	char buffer[16];
+    float vout = 0;
+    float rntc = 0;
+    float lnr = 0;
+    float tempk = 0;
+	float tempc = 0;
 	
     for(;;){
 	  uint16_t vout_d = ADC_Read(0);
-	  sprintf(buffer,"ADC: %d\r\n",adc);
+	  sprintf(buffer,"ADC: %d\r\n",vout_d);
 	  for(int i = 0; i < 10; i++){
           USART_Transmit(buffer[i]);
       }
-	  float vout = (vin * vout_d)/1023;
-	  float rntc = r10k * ((vin/vout)-1);
-	  float lnr = log(rntc/rinf);
+	  vout = (vin * vout_d)/1023;
+	  rntc = r10k * ((vin/vout)-1);
+	  lnr = log(rntc/rinf);
 	  tempk = B/(lnr);
 	  tempc = (tempk - 273.15);
-	  delay(2000);  
+      snprintf(buffer,10,"T: %d\r\n", (int)(tempc));
+      for(int i = 0; i < 10; i++){
+        USART_Transmit(buffer[i]);
+      }
 	}
 	return 0;
 }
