@@ -15,6 +15,7 @@ public:
 	void clear();
 	void toggle();
 private:
+    uint8_t _id;
 	uint8_t _bit;
     uint8_t * _DDR;
     uint8_t * _PORT;
