@@ -27,7 +27,7 @@ public:
 private:
 	uint8_t _bit;
 	uint8_t _id;
-	GPIO_PORT::GPIO_Port * _Px;
+	GPIO_PORT::GPIO_Port * _port;
 };
 
 
