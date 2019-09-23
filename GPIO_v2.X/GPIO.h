@@ -24,7 +24,7 @@ public:
 	void toggle();
 private:
 	uint8_t _bit;
-	GPIO_PORT::GPIO_Port * Px;
+	GPIO_PORT::GPIO_Port * _port;
 };
 
 

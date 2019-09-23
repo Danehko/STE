@@ -8,6 +8,8 @@
 #ifndef GPIO_H_
 #define GPIO_H_
 
+#include "GPIO_Port.h"
+
 class GPIO {
 public:
 	enum PortDirection_t {
@@ -24,7 +26,8 @@ public:
 	void toggle();
 private:
 	uint8_t _bit;
-	GPIO_PORT::GPIO_Port * Px;
+	uint8_t _id;
+	GPIO_PORT::GPIO_Port * _Px;
 };
 
 
