@@ -13,6 +13,10 @@ public:
     void clear(uint8_t p);
     bool  get(uint8_t p);
     void toggle(uint8_t p);
+    void dir_byte(bool io);
+    void write_byte(uint8_t val);
+    void toogle_byte();
+    uint8_t read_byte();
 
 private:
     uint8_t pin;
@@ -24,6 +28,7 @@ extern GPIO_Port * PB;
 extern GPIO_Port * PE;
 extern GPIO_Port * PG;
 extern GPIO_Port * PH;
+extern GPIO_Port * PK;
 
 
 } /* namespace GPIO_PORT */

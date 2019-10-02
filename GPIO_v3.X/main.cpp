@@ -1,6 +1,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include "GPIO.h"
+#include "GPIO_Port.h"
 #include "Timer.h"
  
  
@@ -30,12 +31,14 @@ Timer t = Timer(1000);
  
 int main(){
  
-	sei();
-	t.addTimeout(1000, &timeout2_handler);
-	t.addTimeout(2000, &timeout3_handler);
-	t.addTimeout(3000, &timeout4_handler);
-	t.addTimeout(4000, &timeout5_handler);
-	while(true){
-		t.timeoutManager();
-	}
+//	sei();
+//	t.addTimeout(1000, &timeout2_handler);
+//	t.addTimeout(2000, &timeout3_handler);
+//	t.addTimeout(3000, &timeout4_handler);
+//	t.addTimeout(4000, &timeout5_handler);
+//	while(true){
+//		t.timeoutManager();
+//	}
+    
+    
 }
