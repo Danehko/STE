@@ -222,18 +222,13 @@ bool GPIO_Port::get(uint8_t p) {
 void GPIO_Port::toggle(uint8_t p) {
 	pin = p;
 }
-
+//correção da A3
 void GPIO_Port::dir_byte(bool io) {
         
-//    if (io)
-//        ddr |= p;
-//    else
-//        ddr &= ~p;
-    
-//    if (io)
-//        ddr |= p;
-//    else
-//        ddr = 0;
+    if (io)
+        ddr = 0xFF;
+    else
+        ddr = 0x00;
     
 }
 
@@ -247,7 +242,9 @@ uint8_t GPIO_Port::read_byte() {
 
 void GPIO_Port::toogle_byte() {
 	
-    //pin = p;
+    port ~= port;
+    
+    //pin = 0xFF
 }
 
 

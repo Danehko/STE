@@ -24,11 +24,13 @@ private:
     uint8_t port;
 };
 
-extern GPIO_Port * PB;
-extern GPIO_Port * PE;
-extern GPIO_Port * PG;
-extern GPIO_Port * PH;
-extern GPIO_Port * PK;
+//extern GPIO_Port * PB;
+//extern GPIO_Port * PE;
+//extern GPIO_Port * PG;
+//extern GPIO_Port * PH;
+//extern GPIO_Port * PK;
+
+extern GPIO_Port * AllPorts[11]; 
 
 
 } /* namespace GPIO_PORT */
