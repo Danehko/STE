@@ -1,34 +1,49 @@
-#include <avr/io.h>
-
-#define F_CPU 16000000UL
-
-class Pwm {
-    Pwm(bool isFastPwm) {
-        // it's important to configure the port direction with the GPIO class
-
-        // OCR0 is what controls the duty cycle
-        // OCR0 = 45% of 255 = 114.75 = 115
-
-        // Always set OC0A to be cleared and set OC0A at bottom
-        TCCR0A = (1<<COMA1)
-        if isFastPwm {
-            setFastPwm()
-        } else {
-            setPhasePwm()
-        }
+#include "Pwm.h"
 
 
-    // The COM01:0 pins come into play here. We see that by setting it to “10” or “11”, the output pin OC0 is either set or cleared (in other words, it determines whether the PWM is in inverted mode, or in non-inverted mode).
-        
+Pwm::Pwm(bool isFastPwm, int pinNumber, int dutyCycle, float frequency) {
+    // it's important to configure the port direction with the GPIO class
+    /* GPIO pin(uint8_t(pinNumber), GPIO::OUTPUT); */
+    /* this->pwmOut = &pin; // or implement the `new` operator */
+
+    DDRB |= (1<<7);
+    DDRB &= ~(1<<6); 
+
+    updateDutyCycle(dutyCycle);
+
+    // Always set OC0A to be cleared and set OC0A at bottom
+    TCCR0A = (1<<COM0A1);
+    if (isFastPwm) {
+        setFastPwm();
+    } else {
+        setPhasePwm();
     }
+    
+    // test
+    TCCR0B = ((1<<CS01)|(1<<CS00));
 
-    void setFastPwm() {
-        TCCR0A = ((1<<WGM01)|(1<<WGM00)); 
+
+    // TODO: missing frequency configuration
+}
+
+Pwm::~Pwm() {}
+
+void Pwm::setFastPwm() {
+    TCCR0A |= ((1<<WGM01)|(1<<WGM00)); 
+}
+
+void Pwm::setPhasePwm() {
+    TCCR0A |= ((0<<WGM01)|(1<<WGM00)); 
+}
+
+bool Pwm::updateDutyCycle(int dutyCycle) {
+    // OCR0 is what controls the duty cycle
+    // OCR0 = 45% of 255 = 114.75 = 115
+    if (dutyCycle < 100 && dutyCycle > 0) {
+        OCR0A = dutyCycle * 255/100;
+        return true;
+    } else {
+        OCR0A = 0;
+        return false;
     }
-
-    void setPhasePwm() {
-        TCCR0A = ((0<<WGM01)|(1<<WGM00)); 
-    }
-
-
-};
+}

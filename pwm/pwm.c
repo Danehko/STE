@@ -17,17 +17,21 @@ int main(void){
     TCCR0B = ((1<<CS01)|(1<<CS00));   //Activar o timer com um prescaler de 1:64
 
     for(;;){
-         //Fade up
-         for(i=0; i<255;i++){
-              OCR0A = i; //Define o novo valor do duty cycle
-              _delay_ms(5); //Um pequeno delay
-         }
 
-         //Fade down
-         for(i=255; i>0;i--){
-              OCR0A = i; //Define o novo valor do duty cycle
-              _delay_ms(5); //Um pequeno delay
-         }
+        OCR0A = 115;
+
+
+         /* //Fade up */
+         /* for(i=0; i<255;i++){ */
+         /*      OCR0A = i; //Define o novo valor do duty cycle */
+         /*      _delay_ms(5); //Um pequeno delay */
+         /* } */
+
+         /* //Fade down */
+         /* for(i=255; i>0;i--){ */
+         /*      OCR0A = i; //Define o novo valor do duty cycle */
+         /*      _delay_ms(5); //Um pequeno delay */
+         /* } */
     }
 
     return 0;
