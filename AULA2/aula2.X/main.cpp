@@ -6,7 +6,7 @@
  */
 
 #include<avr/io.h>
-#include <stdio.h>yh
+#include <stdio.h>
 #include <math.h> 
 
 #define F_CPU 16000000UL
