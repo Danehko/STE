@@ -88,6 +88,7 @@ LDLIBSOPTIONS=
 # fixDeps replaces a bunch of sed/cat/printf statements that slow down the build
 FIXDEPS=fixDeps
 
+<<<<<<< HEAD
 # The following macros may be used in the pre and post step lines
 Device=ATmega2560
 ProjectDir=/home/gaspar/Documentos/20192/STE/STE/GPIO_v1.3.X
@@ -102,15 +103,13 @@ else
 IsDebug="false"
 endif
 
+=======
+>>>>>>> c72ad845e8bb1c4ff96eaa40f72c8c49982a4384
 .build-conf:  ${BUILD_SUBPROJECTS}
 ifneq ($(INFORMATION_MESSAGE), )
 	@echo $(INFORMATION_MESSAGE)
 endif
 	${MAKE}  -f nbproject/Makefile-default.mk dist/${CND_CONF}/${IMAGE_TYPE}/GPIO_v1.3.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
-	@echo "--------------------------------------"
-	@echo "User defined post-build step: [avrdude -c avrispmkII -P /dev/ttyUSB0 -D -p ${Device} -U flash:w:${ImagePath}:i]"
-	@avrdude -c avrispmkII -P /dev/ttyUSB0 -D -p ${Device} -U flash:w:${ImagePath}:i
-	@echo "--------------------------------------"
 
 MP_PROCESSOR_OPTION=ATmega2560
 # ------------------------------------------------------------------------------------

@@ -1,14 +1,8 @@
-/*
- * GPIO.h
- *
- *  Created on: 22 de mar de 2017
- *      Author: aluno
- */
-
 #ifndef GPIO_H_
 #define GPIO_H_
 
 #include "GPIO_Port.h"
+
 
 class GPIO {
 public:
@@ -26,7 +20,6 @@ public:
 	void toggle();
 private:
 	uint8_t _bit;
-	uint8_t _id;
 	GPIO_PORT::GPIO_Port * _port;
 };
 
