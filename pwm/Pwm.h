@@ -27,6 +27,24 @@ public:
 		PIN_46 = 46
 	};
 
+    enum DIV_FREQ {
+        DIV_FREQ1    = 0x01, 
+        DIV_FREQ8    = 0x02,
+        DIV_FREQ64   = 0x03,
+        DIV_FREQ256  = 0x04,
+        DIV_FREQ1024 = 0x05
+    };
+
+    enum DIV_FREQ9_10 {
+        DIV_FREQ1    = 0x01,
+        DIV_FREQ8    = 0x02,
+        DIV_FREQ32   = 0x03,
+        DIV_FREQ64   = 0x04,
+        DIV_FREQ128  = 0x05,
+        DIV_FREQ256  = 0x06,
+        DIV_FREQ1024 = 0x07
+    };
+
 	enum TYPE_PWM {
 		FAST = 0,
 		PHASECORRET = 1

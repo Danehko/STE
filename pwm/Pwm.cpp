@@ -23,11 +23,19 @@ Pwm::Pwm(TYPE_PWM type, PIN_NUMBER pin, int dutyCycle, float frequency) {
     }
 
     //PARTE DA FREQUENCIA
-    // if ((pin == 13 || pin == 4) && frequency <= 980 ){
-    // 	tem que fazer aqui
-    // }else if (frequency <= 490) {
-    // 	tem que fazer aqui algo
-    // }else {
+    // if (pin == 13 || pin == 4){
+        // TCCR0B = (TCCR0B & 0xF8) | value;
+    // }else if (pin == 11 || pin == 12){
+        // TCCR1B = (TCCR1B & 0xF8) | value;
+    // }else if (pin == 9 || pin == 10){
+        // TCCR2B = (TCCR2B & 0xF8) | value;
+    // }else if (pin == 2 || pin == 3 || pin == 5){
+        // TCCR3B = (TCCR3B & 0xF8) | value;
+    // }else if (pin == 6 || pin == 7 || pin == 8){
+        // TCCR4B = (TCCR4B & 0xF8) | value;
+    // }else if (pin == 44 || pin == 45 || pin == 46){
+        // TCCR5B = (TCCR5B & 0xF8) | value;
+    // }else{
     // 	mata o codigo, kill acaba aqui, frequencia incorreta
     // }
     
