@@ -1,6 +1,6 @@
 #ifndef GPIO_PORT_H_
 #define GPIO_PORT_H_
-#include <avr/pgmspace.h>
+
 #include <avr/io.h>
 
 namespace GPIO_PORT {
@@ -10,7 +10,7 @@ public:
     void dir(uint8_t p, bool io);
     void set(uint8_t p, bool val = 1);
     void clear(uint8_t p);
-    bool  get(uint8_t p);
+    bool get(uint8_t p);
     void toggle(uint8_t p);
 
 private:
@@ -21,8 +21,8 @@ private:
 
 
 extern GPIO_Port * AllPorts[11];
-extern const uint8_t id_to_port[70] PROGMEM;
-extern const uint8_t id_to_bit[70]	PROGMEM;
+extern const uint8_t id_to_port[70];
+extern const uint8_t id_to_bit[70];
 
 } /* namespace GPIO_PORT */
 #endif /* GPIO_PORT_H_ */

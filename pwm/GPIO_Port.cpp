@@ -1,4 +1,5 @@
 #include "GPIO_Port.h"
+#include <avr/pgmspace.h>
 
 namespace GPIO_PORT {
 
@@ -45,7 +46,7 @@ enum Ports_index {
 	PL_i = 10
 };
 
-const uint8_t id_to_port[70] PROGMEM = {
+const PROGMEM uint8_t id_to_port[70] = {
 	PE_i	,
 	PE_i	,
 	PE_i	,
@@ -54,7 +55,7 @@ const uint8_t id_to_port[70] PROGMEM = {
 	PE_i	,
 	PH_i	,
 	PH_i	,
-	PH_i 	,
+	PH_i	,
 	PH_i	,
 	PB_i	,
 	PB_i	,
@@ -66,7 +67,7 @@ const uint8_t id_to_port[70] PROGMEM = {
 	PH_i	,
 	PD_i	,
 	PD_i	,
-	PD_i 	,
+	PD_i	,
 	PD_i	,
 	PA_i	,
 	PA_i	,
@@ -107,7 +108,7 @@ const uint8_t id_to_port[70] PROGMEM = {
 	PF_i	,
 	PF_i	,
 	PF_i	,
-	PF_i 	,
+	PF_i	,
 	PK_i	,
 	PK_i	,
 	PK_i	,
@@ -116,11 +117,9 @@ const uint8_t id_to_port[70] PROGMEM = {
 	PK_i	,
 	PK_i	,
 	PK_i
-
-
 };
 
-const uint8_t id_to_bit[70] PROGMEM = {
+const PROGMEM uint8_t id_to_bit[70] = {
 	_BV( 0 )	,
 	_BV( 1 )	,
 	_BV( 4 )	,
@@ -191,8 +190,6 @@ const uint8_t id_to_bit[70] PROGMEM = {
 	_BV( 5 )	,
 	_BV( 6 )	,
 	_BV( 7 )
-
-
 };
 
 
@@ -221,3 +218,4 @@ void GPIO_Port::toggle(uint8_t p) {
 
 
 } /* namespace GPIO_PORT */
+
