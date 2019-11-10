@@ -1,49 +1,36 @@
 #include "Pwm.h"
+#include <avr/pgmspace.h>
 
+Pwm::Pwm(TYPE_PWM type, PIN_NUMBER pin, int dutyCycle, PWM_FREQ frequency) {
+    if (pin < 4 || pin > 13) {
+        // If the choosen pin is not valid, pwm will use pin 13
+        pin = PIN_13; 
+    }
 
+	_pin = pgm_read_byte(GPIO_PORT::id_to_bit+pin);
+	_port = GPIO_PORT::AllPorts[pgm_read_byte(GPIO_PORT::id_to_port+pin)];
+	_port->dir(_pin, 1);
 
-
-Pwm::Pwm(TYPE_PWM type, PIN_NUMBER pin, int dutyCycle, float frequency) {
-    // it's important to configure the port direction with the GPIO class
-    /* GPIO pin(uint8_t(pinNumber), GPIO::OUTPUT); */
-    /* this->pwmOut = &pin; // or implement the `new` operator */
-
-    DDRB |= (1<<7);
-    DDRB &= ~(1<<6); 
-
-    updateDutyCycle(dutyCycle);
+    if (!updateDutyCycle(dutyCycle)) {
+        // If the duty cycle value is not valid, dety cycle will be setted to zero.
+        updateDutyCycle(0);
+    }
 
     // Always set OC0A to be cleared and set OC0A at bottom
     TCCR0A = (1<<COM0A1);
-
-    if ( type == 0 ) {
-        setFastPwm();
-    } else {
+    if (type == PHASECORRECT) {
         setPhasePwm();
+    } else {
+        // The default pwm type is FAST, if the choosen value is not valid,
+        // the PWM will be configured as FAST.
+        setFastPwm();
     }
 
-    //PARTE DA FREQUENCIA
-    // if (pin == 13 || pin == 4){
-        // TCCR0B = (TCCR0B & 0xF8) | value;
-    // }else if (pin == 11 || pin == 12){
-        // TCCR1B = (TCCR1B & 0xF8) | value;
-    // }else if (pin == 9 || pin == 10){
-        // TCCR2B = (TCCR2B & 0xF8) | value;
-    // }else if (pin == 2 || pin == 3 || pin == 5){
-        // TCCR3B = (TCCR3B & 0xF8) | value;
-    // }else if (pin == 6 || pin == 7 || pin == 8){
-        // TCCR4B = (TCCR4B & 0xF8) | value;
-    // }else if (pin == 44 || pin == 45 || pin == 46){
-        // TCCR5B = (TCCR5B & 0xF8) | value;
-    // }else{
-    // 	mata o codigo, kill acaba aqui, frequencia incorreta
-    // }
-    
-    // test
-    TCCR0B = ((1<<CS01)|(1<<CS00));
-
-
-    // TODO: missing frequency configuration
+    if (!updateFrequency(frequency)) {
+        // If the choosen frequency is not supported the frequency will fall to its default value.
+        // Frequency defaults to 976 Hz
+        updateFrequency(f_976Hz);
+    }
 }
 
 Pwm::~Pwm() {}
@@ -66,4 +53,13 @@ bool Pwm::updateDutyCycle(int dutyCycle) {
         OCR0A = 0;
         return false;
     }
+}
+
+bool Pwm::updateFrequency(PWM_FREQ frequency) {
+    if (frequency > 0x05 || frequency < 0x01) {
+        return false;
+    }
+    // Prescaler config
+    TCCR0B = frequency;
+    return true;
 }
